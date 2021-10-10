@@ -144,6 +144,7 @@
 @media only screen and (max-width: 992px) {
 	.right-header .right-header__destinations,
 	.right-header .right-header__login,
+	.right-header .right-header__item,
 	.right-header .right-header__signup,
 	.right-header .right-header__button{
 		display: none;

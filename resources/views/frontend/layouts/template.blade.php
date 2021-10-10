@@ -219,6 +219,10 @@
                             @endif
                         </div> --}}
 
+                        <div class="right-header__item">
+                            <a title="Home" class="" href="{{route('home')}}">Home</a>
+                        </div><!-- .right-header__item -->
+
                         <div class="right-header__destinations">
                             <a title="Destinations" href="#">
                                 {{__('Destinations')}}
@@ -339,6 +343,9 @@
                                 </div>
                             </div><!-- .account -->
                         @endguest
+                        <div class="right-header__item">
+                            <a title="Blog" class="" href="{{route('post_list_all')}}">Blog</a>
+                        </div><!-- .right-header__item -->
                         <div class="right-header__search">
                             <a title="Search" href="#" class="search-open">
                                 <i class="la la-search la-24"></i>
@@ -422,7 +429,7 @@
                 </div>
             </div><!-- .top-footer -->
             <div class="footer__bottom">
-                <p class="footer__bottom__copyright">{{now()->year}} &copy; <a href="{{__('https://uxper.co')}}" target="_blank">{{__('UxPer')}}</a>. {{__('All rights reserved.')}}</p>
+                <p class="footer__bottom__copyright">{{now()->year}} &copy; <a href="{{__('https://test')}}" target="_blank">{{__('Test')}}</a>. {{__('All rights reserved.')}}</p>
             </div><!-- .top-footer -->
         </div><!-- .container -->
     </footer><!-- site-footer -->

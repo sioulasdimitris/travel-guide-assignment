@@ -4792,10 +4792,12 @@ a.place__comments__reply {
   display: none !important; }
 .home-header .right-header__destinations > a,
 .home-header .right-header__login > a,
+.home-header .right-header__item > a,
 .home-header .right-header__signup > a {
   color: #ffffff; }
 .home-header .right-header__destinations > a:hover,
 .home-header .right-header__login > a:hover,
+.home-header .right-header__item > a:hover,
 .home-header .right-header__signup > a:hover {
   color: #23d3d3; }
 .home-header .minicart__open > i,
@@ -6464,6 +6466,7 @@ a.place__comments__reply {
   color: #2d2d2d; }
 .home-header.home-header-while .right-header__destinations > a,
 .home-header.home-header-while .right-header__login > a,
+.home-header.home-header-while .right-header__item > a,
 .home-header.home-header-while .right-header__signup > a {
   color: #2d2d2d;
   font-family: "Jost"; }

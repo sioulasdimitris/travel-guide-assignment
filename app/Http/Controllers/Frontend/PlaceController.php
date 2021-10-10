@@ -105,9 +105,9 @@ class PlaceController extends Controller
         $description = $place->seo_description ? $place->seo_description : Str::limit($place->description, 165);
         SEOMeta($title, $description, getImageUrl($place->thumb));
 
-        $template = setting('template', '01');
+        $template = setting('template', '03');
 
-        return view("frontend.place.place_detail_{$template}", [
+        return view("frontend.place.place_detail_03", [
             'place' => $place,
             'city' => $city,
             'amenities' => $amenities,

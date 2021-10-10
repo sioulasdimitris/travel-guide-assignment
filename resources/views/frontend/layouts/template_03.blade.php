@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
     <link rel="stylesheet" type="text/css" href="{{asset('assets/fonts/jost/stylesheet.css')}}"/>
     <link rel="stylesheet" type="text/css" href="{{asset('assets/css/line-awesome.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('assets/libs/fontawesome-pro/css/fontawesome.css')}}" />
     <link rel="stylesheet" type="text/css" href="{{asset('assets/libs/bootstrap/css/bootstrap.min.css')}}"/>
     <link rel="stylesheet" type="text/css" href="{{asset('assets/libs/slick/slick-theme.css')}}"/>
     <link rel="stylesheet" type="text/css" href="{{asset('assets/libs/slick/slick.css')}}"/>
@@ -15,21 +16,30 @@
     <link rel="stylesheet" type="text/css" href="{{asset('assets/libs/chosen/chosen.min.css')}}"/>
     <link rel="stylesheet" type="text/css" href="{{asset('assets/libs/photoswipe/photoswipe.css')}}"/>
     <link rel="stylesheet" type="text/css" href="{{asset('assets/libs/photoswipe/default-skin/default-skin.css')}}"/>
-    <link rel="stylesheet" type="text/css" href="{{asset('assets/libs/lity/lity.min.css')}}"/>
-    <link rel="stylesheet" type="text/css" href="{{asset('assets/libs/gijgo/css/gijgo.min.css')}}"/>
-    <link rel="stylesheet" type="text/css" href="{{asset('assets/css/style.css')}}"/>
-    <link rel="stylesheet" type="text/css" href="{{asset('assets/css/responsive.css')}}"/>
-    <link rel="stylesheet" type="text/css" href="{{asset('assets/css/custom.css')}}"/>
+    <link rel="stylesheet" type="text/css" href="{{asset('assets/libs/datetimepicker/jquery.datetimepicker.min.css')}}" />
+    <link rel="stylesheet" type="text/css" href="{{asset('assets/libs/venobox/venobox.css')}}" />
 
+    @if(setting('style_rtl'))
+        <link rel="stylesheet" type="text/css" href="{{asset('assets/css/style-rtl.css')}}"/>
+        <link rel="stylesheet" type="text/css" href="{{asset('assets/css/responsive-rtl.css')}}"/>
+        <link rel="stylesheet" type="text/css" href="{{asset('assets/css/custom-rtl.css?v=1.0')}}"/>
+    @else
+        <link rel="stylesheet" type="text/css" href="{{asset('assets/03/css/style.css')}}"/>
+        <link rel="stylesheet" type="text/css" href="{{asset('assets/03/css/responsive.css')}}"/>
+        <link rel="stylesheet" type="text/css" href="{{asset('assets/03/css/custom.css')}}"/>
+    @endif
+
+    <link rel="icon" sizes="16x16" href="{{asset('assets/images/favicon.png')}}">
     <meta name="csrf-token" content="{{csrf_token()}}"/>
     <script>
         var app_url = window.location.origin;
     </script>
+    @stack('style')
 </head>
 
 <body>
 <div id="wrapper">
-    <header id="header" class="site-header {{!isRoute('home') ?: 'home-header home-header-while'}}">
+    <header id="header" class="site-header">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-6 col-8">
@@ -88,7 +98,7 @@
                                     <div class="popup__menu popup__box">
                                         <ul class="menu-arrow">
                                             <li>
-                                                <a title="Home demo" href="{{route('home')}}">Home</a>
+                                                <a title="Home demo" href="{{route('home')}}">Demo</a>
                                                 <ul class="sub-menu">
                                                     <li><a href="https://lara-restaurant.getgolo.com">Restaurant</a></li>
                                                     <li><a href="https://lara-business.getgolo.com">Business Listing</a></li>
@@ -169,7 +179,7 @@
 
                 <div class="col-md-6 col-4">
                     <div class="right-header align-right">
-                        {{-- <div class="right-header__languages">
+                        <div class="right-header__languages">
                             <a href="#">
                                 <img src="{{flagImageUrl(\Illuminate\Support\Facades\App::getLocale())}}">
                                 @if(count($languages) > 1)
@@ -185,7 +195,7 @@
                                     @endforeach
                                 </ul>
                             @endif
-                        </div> --}}
+                        </div>
 
                         <div class="right-header__destinations">
                             <a title="Destinations" href="#">
@@ -200,12 +210,9 @@
                         </div><!-- .right-header__destinations -->
 
                         @guest
-                        <div class="right-header__login">
-                            <a title="Login" class="open-login" href="#">{{__('Login')}}</a>
-                        </div><!-- .right-header__login -->
-                        <div class="right-header__signup">
-                            <a title="Sign Up" class="open-signup" href="#">{{__('Sign Up')}}</a>
-                        </div><!-- .right-header__signup -->
+                            <div class="right-header__login">
+                                <a title="Login" class="open-login" href="#">{{__('Login')}}</a>
+                            </div><!-- .right-header__login -->
                             <div class="popup popup-form">
                                 <a title="Close" href="#" class="popup__close">
                                     <i class="las la-times la-24-black"></i>
@@ -226,7 +233,9 @@
                                         <div class="field-input">
                                             <input type="password" id="password" name="password" placeholder="Password" required>
                                         </div>
-                                        <a title="Forgot password" class="forgot_pass" href="#">{{__('Forgot password')}}</a>
+                                        <div class="choose-form mb-0">
+                                        <a title="Forgot password" class="forgot_pass" href="#forgot_password">{{__('Forgot password')}}</a>
+                                        </div>
                                         {{--                                    <input type="submit" name="submit" value="Login">--}}
                                         <button type="submit" class="gl-button btn button w-100" id="submit_login">{{__('Login')}}</button>
                                     </form>
@@ -258,6 +267,16 @@
                                         </div>
                                         <button type="submit" class="gl-button btn button w-100" id="submit_register">{{__('Sign Up')}}</button>
                                     </form>
+                                    <form class="form-forgotpass form-content" id="forgot_password" action="{{route('api_user_forgot_password')}}" method="POST">
+                                        @csrf
+                                        <p class="choose-or"><span>{{__('Lost your password? Please enter your email address. You will receive a link to create a new password via email.')}}</span></p>
+                                        <small class="form-text text-danger golo-d-none" id="fp_error">error!</small>
+                                        <small class="form-text text-success golo-d-none" id="fp_success">error!</small>
+                                        <div class="field-input">
+                                            <input type="text" id="email" name="email" placeholder="Email Address" required>
+                                        </div>
+                                        <button type="submit" class="gl-button btn button w-100" id="submit_forgot_password">{{__('Forgot password')}}</button>
+                                    </form>
 
                                 </div>
                             </div><!-- .popup-form -->
@@ -288,47 +307,48 @@
                                 </div>
                             </div><!-- .account -->
                         @endguest
-                        
-                        <div class="right-header__login">
-                            <a title="Contacts" href="{{route('page_contact')}}">Contact</a>
-                        </div><!-- .right-header__login -->
-                        
                         <div class="right-header__search">
                             <a title="Search" href="#" class="search-open">
                                 <i class="las la-search la-24-black"></i>
                             </a>
                         </div>
+                        <div class="right-header__button btn">
+                            <a title="Add place" href="{{route('place_addnew')}}">
+                                <i class="las la-plus la-24-white"></i>
+                                <span>{{__('Add place')}}</span>
+                            </a>
+                        </div><!-- .right-header__button -->
                     </div><!-- .right-header -->
                 </div><!-- .col-md-6 -->
             </div><!-- .row -->
+
+
         </div><!-- .container-fluid -->
     </header><!-- .site-header -->
 
     @yield('main')
 
-    <footer id="footer" class="footer layout-02">
+    <footer id="footer" class="footer">
         <div class="container">
             <div class="footer__top">
                 <div class="row">
                     <div class="col-lg-5">
                         <div class="footer__top__info">
-                            <a title="Logo" href="#" class="footer__top__info__logo"><img src="{{asset(setting('logo') ? 'uploads/' . setting('logo') : 'assets/images/assets/logo.png')}}" alt="Golo"></a>
-                            <p class="footer__top__info__desc">{{__('Sign-up to receive regular updates from us.')}}</p>
-                            <form action="#" class="footer-subscribe">
-                                <div class="field-input">
-                                    <input type="email" name="email" placeholder="Enter your email" value="">
-                                </div>
-                                <button><i class="las la-arrow-right"></i></button>
-                            </form>
+                            <a title="Logo" href="#" class="footer__top__info__logo"><img src="{{asset(setting('logo') ? 'uploads/' . setting('logo') : 'assets/images/assets/logo.png')}}" alt="logo"></a>
+                            <p class="footer__top__info__desc">{{__('Discover amazing things to do everywhere you go.')}}</p>
+                            <div class="footer__top__info__app">
+                                <a title="App Store" href="#" class="banner-apps__download__iphone"><img src="{{asset('assets/images/assets/app-store.png')}}" alt="App Store"></a>
+                                <a title="Google Play" href="#" class="banner-apps__download__android"><img src="{{asset('assets/images/assets/google-play.png')}}" alt="Google Play"></a>
+                            </div>
                         </div>
                     </div>
                     <div class="col-lg-2">
                         <aside class="footer__top__nav">
                             <h3>{{__('Company')}}</h3>
                             <ul>
-                                <li><a href="{{url('post/about-us-10')}}">{{__('About Us')}}</a></li>
+                                <li><a href="{{route('post_detail', ['about-us', 10])}}">{{__('About Us')}}</a></li>
                                 <li><a href="{{route('post_list_all')}}">{{__('Blog')}}</a></li>
-                                <li><a href="">{{__('Faqs')}}</a></li>
+                                <li><a href="{{route('post_detail', ['faqs', 11])}}">{{__('Faqs')}}</a></li>
                                 <li><a href="{{route('page_contact')}}">{{__('Contact')}}</a></li>
                             </ul>
                         </aside>
@@ -350,24 +370,24 @@
                             <p>{{__('Email: support@domain.com')}}</p>
                             <p>{{__('Phone: 1 (00) 832 2342')}}</p>
                             <ul>
-                                <li>
+                                <li class="facebook">
                                     <a title="Facebook" href="#">
-                                        <i class="la la-facebook la-24"></i>
+                                        <i class="la la-facebook-f"></i>
                                     </a>
                                 </li>
-                                <li>
+                                <li class="twitter">
                                     <a title="Twitter" href="#">
-                                        <i class="la la-twitter la-24"></i>
+                                        <i class="la la-twitter"></i>
                                     </a>
                                 </li>
-                                <li>
+                                <li class="youtube">
                                     <a title="Youtube" href="#">
-                                        <i class="la la-youtube la-24"></i>
+                                        <i class="la la-youtube"></i>
                                     </a>
                                 </li>
-                                <li>
+                                <li class="instagram">
                                     <a title="Instagram" href="#">
-                                        <i class="la la-instagram la-24"></i>
+                                        <i class="la la-instagram"></i>
                                     </a>
                                 </li>
                             </ul>
@@ -380,7 +400,6 @@
             </div><!-- .top-footer -->
         </div><!-- .container -->
     </footer><!-- site-footer -->
-   
 </div><!-- #wrapper -->
 
 <!-- jQuery -->
@@ -390,16 +409,16 @@
 <script src="{{asset('assets/libs/slick/slick.min.js')}}"></script>
 <script src="{{asset('assets/libs/slick/jquery.zoom.min.js')}}"></script>
 <script src="{{asset('assets/libs/isotope/isotope.pkgd.min.js')}}"></script>
-<script src="{{asset('assets/libs/photoswipe/photoswipe.min.js')}}"></script>
-<script src="{{asset('assets/libs/photoswipe/photoswipe-ui-default.min.js')}}"></script>
-<script src="{{asset('assets/libs/lity/lity.min.js')}}"></script>
 <script src="{{asset('assets/libs/quilljs/js/quill.core.js')}}"></script>
 <script src="{{asset('assets/libs/quilljs/js/quill.js')}}"></script>
-<script src="{{asset('assets/libs/gijgo/js/gijgo.min.js')}}"></script>
 <script src="{{asset('assets/libs/chosen/chosen.jquery.min.js')}}"></script>
+<script src="{{asset('assets/libs/photoswipe/photoswipe.min.js')}}"></script>
+<script src="{{asset('assets/libs/photoswipe/photoswipe-ui-default.min.js')}}"></script>
+<script src="{{asset('assets/libs/datetimepicker/jquery.datetimepicker.full.min.js')}}"></script>
+<script src="{{asset('assets/libs/venobox/venobox.min.js')}}"></script>
 <!-- orther script -->
-<script src="{{asset('assets/js/main_business.js?v=1.0')}}"></script>
-<script src="{{asset('assets/js/custom.js?v=1.0')}}"></script>
+<script src="{{asset('assets/03/js/main.js?v=1.4')}}"></script>
+<script src="{{asset('assets/js/custom.js?v=1.4')}}"></script>
 
 <script src="https://maps.googleapis.com/maps/api/js?key={{setting('goolge_map_api_key', 'AIzaSyD-2mhVoLX7oIOgRQ-6bxlJt4TF5k0xhWc')}}&libraries=places&language={{\Illuminate\Support\Facades\App::getLocale()}}"></script>
 
