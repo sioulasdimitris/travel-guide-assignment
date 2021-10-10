@@ -169,7 +169,7 @@
 
                 <div class="col-md-6 col-4">
                     <div class="right-header align-right">
-                        <div class="right-header__languages">
+                        {{-- <div class="right-header__languages">
                             <a href="#">
                                 <img src="{{flagImageUrl(\Illuminate\Support\Facades\App::getLocale())}}">
                                 @if(count($languages) > 1)
@@ -185,7 +185,7 @@
                                     @endforeach
                                 </ul>
                             @endif
-                        </div>
+                        </div> --}}
 
                         <div class="right-header__destinations">
                             <a title="Destinations" href="#">
@@ -200,9 +200,12 @@
                         </div><!-- .right-header__destinations -->
 
                         @guest
-                            <div class="right-header__login">
-                                <a title="Login" class="open-login" href="#">{{__('Login')}}</a>
-                            </div><!-- .right-header__login -->
+                        <div class="right-header__login">
+                            <a title="Login" class="open-login" href="#">{{__('Login')}}</a>
+                        </div><!-- .right-header__login -->
+                        <div class="right-header__signup">
+                            <a title="Sign Up" class="open-signup" href="#">{{__('Sign Up')}}</a>
+                        </div><!-- .right-header__signup -->
                             <div class="popup popup-form">
                                 <a title="Close" href="#" class="popup__close">
                                     <i class="las la-times la-24-black"></i>
@@ -285,22 +288,19 @@
                                 </div>
                             </div><!-- .account -->
                         @endguest
+                        
+                        <div class="right-header__login">
+                            <a title="Contacts" href="{{route('page_contact')}}">Contact</a>
+                        </div><!-- .right-header__login -->
+                        
                         <div class="right-header__search">
                             <a title="Search" href="#" class="search-open">
                                 <i class="las la-search la-24-black"></i>
                             </a>
                         </div>
-                        <div class="right-header__button btn">
-                            <a title="Add place" href="{{route('place_addnew')}}">
-                                <i class="las la-plus la-24-white"></i>
-                                <span>{{__('Add place')}}</span>
-                            </a>
-                        </div><!-- .right-header__button -->
                     </div><!-- .right-header -->
                 </div><!-- .col-md-6 -->
             </div><!-- .row -->
-
-
         </div><!-- .container-fluid -->
     </header><!-- .site-header -->
 
@@ -380,28 +380,7 @@
             </div><!-- .top-footer -->
         </div><!-- .container -->
     </footer><!-- site-footer -->
-    @if(isRoute('home'))
-        @php
-            $img_home_banner_app = getImageUrl(setting('home_banner_app'));
-            if (setting('home_banner_app')) {
-                $home_banner_app = "style=background-image:url({$img_home_banner_app})";
-            } else {
-                $home_banner_app = "style=background-image:url(/assets/images/bg-app.png)";
-            }
-        @endphp
-        <div class="landing-banner business-landing-banner" {{$home_banner_app}}>
-            <div class="container">
-                <div class="lb-info">
-                    <h2>{{__('The Golo App')}}</h2>
-                    <p>{{__('Download the app and go to travel the world.')}}</p>
-                    <div class="lb-button">
-                        <a href="#" title="App store"><img src="{{asset('assets/images/app-store.png')}}" alt="App store"></a>
-                        <a href="#" title="Google play"><img src="{{asset('assets/images/google-play.png')}}" alt="Google play"></a>
-                    </div>
-                </div><!-- .lb-info -->
-            </div>
-        </div><!-- .landing-banner -->
-    @endif
+   
 </div><!-- #wrapper -->
 
 <!-- jQuery -->

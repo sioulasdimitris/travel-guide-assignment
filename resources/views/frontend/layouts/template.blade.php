@@ -201,7 +201,7 @@
 
                 <div class="col-md-6 col-4">
                     <div class="right-header align-right">
-                        <div class="right-header__languages">
+                        {{-- <div class="right-header__languages">
                             <a href="#">
                                 <img src="{{flagImageUrl(\Illuminate\Support\Facades\App::getLocale())}}">
                                 @if(count($languages) > 1)
@@ -217,7 +217,7 @@
                                     @endforeach
                                 </ul>
                             @endif
-                        </div>
+                        </div> --}}
 
                         <div class="right-header__destinations">
                             <a title="Destinations" href="#">
@@ -344,12 +344,6 @@
                                 <i class="la la-search la-24"></i>
                             </a>
                         </div>
-                        <div class="right-header__button btn">
-                            <a title="Add place" href="{{route('place_addnew')}}">
-                                <i class="la la-plus la-24"></i>
-                                <span>{{__('Add place')}}</span>
-                            </a>
-                        </div><!-- .right-header__button -->
                     </div><!-- .right-header -->
                 </div><!-- .col-md-6 -->
             </div><!-- .row -->

@@ -117,9 +117,6 @@
                                                 </div>
                                                 <span class="count-reviews">({{$place->reviews_count}} {{__('reviews')}})</span>
                                             </div>
-                                            <div class="place-price">
-                                                <span>{{PRICE_RANGE[$place['price_range']]}}</span>
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
