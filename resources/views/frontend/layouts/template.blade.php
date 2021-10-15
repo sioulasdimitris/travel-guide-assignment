@@ -343,9 +343,15 @@
                                 </div>
                             </div><!-- .account -->
                         @endguest
-                        <div class="right-header__item">
+
+                        {{-- <div class="right-header__item">
                             <a title="Blog" class="" href="{{route('post_list_all')}}">Blog</a>
-                        </div><!-- .right-header__item -->
+                        </div><!-- .right-header__item --> --}}
+
+                        <div class="right-header__login">
+                            <a title="Contacts" href="{{route('page_contact')}}">Contact</a>
+                        </div><!-- .right-header__login -->
+
                         <div class="right-header__search">
                             <a title="Search" href="#" class="search-open">
                                 <i class="la la-search la-24"></i>

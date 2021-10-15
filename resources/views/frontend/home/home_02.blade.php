@@ -74,7 +74,135 @@
 
         <div class="trending trending-business">
             <div class="container">
-                <h2 class="title title-border-bottom align-center">{{__('Trending Business Places')}}</h2>
+                <h2 class="title title-border-bottom align-center">{{__('Suggested Places by your Searches')}}</h2>
+                <div class="slick-sliders">
+                    <div class="slick-slider trending-slider slider-pd30" data-item="4" data-arrows="true" data-itemScroll="4" data-dots="true" data-centerPadding="30" data-tabletitem="2" data-tabletscroll="2" data-smallpcscroll="3" data-smallpcitem="3" data-mobileitem="1" data-mobilescroll="1" data-mobilearrows="false">
+
+                        @foreach($trending_places as $place)
+                            <div class="place-item layout-02">
+                                <div class="place-inner">
+                                    <div class="place-thumb">
+                                        <a class="entry-thumb" href="{{route('place_detail', $place->slug)}}"><img src="{{getImageUrl($place->thumb)}}" alt="{{$place->name}}"></a>
+                                        <a href="#" class="golo-add-to-wishlist btn-add-to-wishlist @if($place->wish_list_count) remove_wishlist active @else @guest open-login @else add_wishlist @endguest @endif" data-id="{{$place->id}}">
+											<span class="icon-heart">
+												<i class="la la-bookmark large"></i>
+											</span>
+                                        </a>
+                                        @if(isset($place['categories'][0]))
+                                        <a class="entry-category rosy-pink" href="{{route('page_search_listing', ['category[]' => $place['categories'][0]['id']])}}" style="background-color:{{$place['categories'][0]['color_code']}};">
+                                            <img src="{{getImageUrl($place['categories'][0]['icon_map_marker'])}}" alt="{{$place['categories'][0]['name']}}">
+                                            <span>{{$place['categories'][0]['name']}}</span>
+                                        </a>
+                                        @endif
+                                    </div>
+                                    <div class="entry-detail">
+                                        <div class="entry-head">
+                                            <div class="place-type list-item">
+                                                @foreach($place['place_types'] as $type)
+                                                    <span>{{$type->name}}</span>
+                                                @endforeach
+                                            </div>
+                                            <div class="place-city">
+                                                <a href="{{route('page_search_listing', ['city[]' => $place['city']['id']])}}">{{$place['city']['name']}}</a>
+                                            </div>
+                                        </div>
+                                        <h3 class="place-title"><a href="{{route('place_detail', $place->slug)}}">{{$place->name}}</a></h3>
+                                        <div class="entry-bottom">
+                                            <div class="place-preview">
+                                                <div class="place-rating">
+                                                    @if($place->reviews_count)
+                                                        {{number_format($place->avgReview, 1)}}
+                                                        <i class="la la-star"></i>
+                                                    @endif
+                                                </div>
+                                                <span class="count-reviews">({{$place->reviews_count}} {{__('reviews')}})</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+
+                    </div>
+                    <div class="place-slider__nav slick-nav">
+                        <div class="place-slider__prev slick-nav__prev">
+                            <i class="las la-angle-left"></i>
+                        </div><!-- .place-slider__prev -->
+                        <div class="place-slider__next slick-nav__next">
+                            <i class="las la-angle-right"></i>
+                        </div><!-- .place-slider__next -->
+                    </div><!-- .place-slider__nav -->
+                </div>
+            </div>
+        </div><!-- .trending -->
+
+        <div class="trending trending-business">
+            <div class="container">
+                <h2 class="title title-border-bottom align-center">{{__('Suggested Places by Visitors Reviews')}}</h2>
+                <div class="slick-sliders">
+                    <div class="slick-slider trending-slider slider-pd30" data-item="4" data-arrows="true" data-itemScroll="4" data-dots="true" data-centerPadding="30" data-tabletitem="2" data-tabletscroll="2" data-smallpcscroll="3" data-smallpcitem="3" data-mobileitem="1" data-mobilescroll="1" data-mobilearrows="false">
+
+                        @foreach($trending_places as $place)
+                            <div class="place-item layout-02">
+                                <div class="place-inner">
+                                    <div class="place-thumb">
+                                        <a class="entry-thumb" href="{{route('place_detail', $place->slug)}}"><img src="{{getImageUrl($place->thumb)}}" alt="{{$place->name}}"></a>
+                                        <a href="#" class="golo-add-to-wishlist btn-add-to-wishlist @if($place->wish_list_count) remove_wishlist active @else @guest open-login @else add_wishlist @endguest @endif" data-id="{{$place->id}}">
+											<span class="icon-heart">
+												<i class="la la-bookmark large"></i>
+											</span>
+                                        </a>
+                                        @if(isset($place['categories'][0]))
+                                        <a class="entry-category rosy-pink" href="{{route('page_search_listing', ['category[]' => $place['categories'][0]['id']])}}" style="background-color:{{$place['categories'][0]['color_code']}};">
+                                            <img src="{{getImageUrl($place['categories'][0]['icon_map_marker'])}}" alt="{{$place['categories'][0]['name']}}">
+                                            <span>{{$place['categories'][0]['name']}}</span>
+                                        </a>
+                                        @endif
+                                    </div>
+                                    <div class="entry-detail">
+                                        <div class="entry-head">
+                                            <div class="place-type list-item">
+                                                @foreach($place['place_types'] as $type)
+                                                    <span>{{$type->name}}</span>
+                                                @endforeach
+                                            </div>
+                                            <div class="place-city">
+                                                <a href="{{route('page_search_listing', ['city[]' => $place['city']['id']])}}">{{$place['city']['name']}}</a>
+                                            </div>
+                                        </div>
+                                        <h3 class="place-title"><a href="{{route('place_detail', $place->slug)}}">{{$place->name}}</a></h3>
+                                        <div class="entry-bottom">
+                                            <div class="place-preview">
+                                                <div class="place-rating">
+                                                    @if($place->reviews_count)
+                                                        {{number_format($place->avgReview, 1)}}
+                                                        <i class="la la-star"></i>
+                                                    @endif
+                                                </div>
+                                                <span class="count-reviews">({{$place->reviews_count}} {{__('reviews')}})</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+
+                    </div>
+                    <div class="place-slider__nav slick-nav">
+                        <div class="place-slider__prev slick-nav__prev">
+                            <i class="las la-angle-left"></i>
+                        </div><!-- .place-slider__prev -->
+                        <div class="place-slider__next slick-nav__next">
+                            <i class="las la-angle-right"></i>
+                        </div><!-- .place-slider__next -->
+                    </div><!-- .place-slider__nav -->
+                </div>
+            </div>
+        </div><!-- .trending -->
+
+        <div class="trending trending-business">
+            <div class="container">
+                <h2 class="title title-border-bottom align-center">{{__('Suggested Places by your Wishlist')}}</h2>
                 <div class="slick-sliders">
                     <div class="slick-slider trending-slider slider-pd30" data-item="4" data-arrows="true" data-itemScroll="4" data-dots="true" data-centerPadding="30" data-tabletitem="2" data-tabletscroll="2" data-smallpcscroll="3" data-smallpcitem="3" data-mobileitem="1" data-mobilescroll="1" data-mobilearrows="false">
 
@@ -172,7 +300,7 @@
             </div>
         </div><!-- .featured-cities -->
 
-        <div class="business-about" style="background-image: url({{asset('assets/images/img_about_1.jpg')}});">
+        {{-- <div class="business-about" style="background-image: url({{asset('assets/images/img_about_1.jpg')}});">
             <div class="container">
                 <div class="row">
                     <div class="col-md-6">
@@ -184,8 +312,8 @@
                     </div>
                 </div>
             </div>
-        </div><!-- .business-about -->
-        <div class="blogs">
+        </div><!-- .business-about --> --}}
+        {{-- <div class="blogs">
             <div class="container">
                 <h2 class="title title-border-bottom align-center">{{__('From Our Blog')}}</h2>
                 <div class="news__content">
@@ -213,6 +341,6 @@
                     <div class="align-center button-wrap"><a href="{{route('post_list_all')}}" class="btn btn-border">{{__('View more')}}</a></div>
                 </div>
             </div>
-        </div><!-- .blogs -->
+        </div><!-- .blogs --> --}}
     </main><!-- .site-main -->
 @stop
