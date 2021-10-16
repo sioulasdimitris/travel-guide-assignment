@@ -4836,7 +4836,6 @@ a.place__comments__reply {
   .home-main .site-banner:after {
     content: '';
     height: 135px;
-    background-image: url("../images/assets/mask-1.svg");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -5238,7 +5237,6 @@ a.place__comments__reply {
   position: relative; }
   .blogs:before {
     content: '';
-    background-image: url(../images/assets/mask-1.svg);
     background-size: cover;
     background-position: center;
     position: absolute;
@@ -6501,7 +6499,6 @@ a.place__comments__reply {
   .business-main.home-main .site-banner__content p i {
     font-family: "Jost"; }
 .business-main.home-main .site-banner:after {
-  background-image: url(../images/bg_hero_bottom.svg);
   background-size: 110%;
   height: 40px; }
 

@@ -330,73 +330,8 @@
 
     <footer id="footer" class="footer">
         <div class="container">
-            <div class="footer__top">
-                <div class="row">
-                    <div class="col-lg-5">
-                        <div class="footer__top__info">
-                            <a title="Logo" href="#" class="footer__top__info__logo"><img src="{{asset(setting('logo') ? 'uploads/' . setting('logo') : 'assets/images/assets/logo.png')}}" alt="logo"></a>
-                            <p class="footer__top__info__desc">{{__('Discover amazing things to do everywhere you go.')}}</p>
-                            <div class="footer__top__info__app">
-                                <a title="App Store" href="#" class="banner-apps__download__iphone"><img src="{{asset('assets/images/assets/app-store.png')}}" alt="App Store"></a>
-                                <a title="Google Play" href="#" class="banner-apps__download__android"><img src="{{asset('assets/images/assets/google-play.png')}}" alt="Google Play"></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-2">
-                        <aside class="footer__top__nav">
-                            <h3>{{__('Company')}}</h3>
-                            <ul>
-                                <li><a href="{{route('post_detail', ['about-us', 10])}}">{{__('About Us')}}</a></li>
-                                <li><a href="{{route('post_list_all')}}">{{__('Blog')}}</a></li>
-                                <li><a href="{{route('post_detail', ['faqs', 11])}}">{{__('Faqs')}}</a></li>
-                                <li><a href="{{route('page_contact')}}">{{__('Contact')}}</a></li>
-                            </ul>
-                        </aside>
-                    </div>
-                    <div class="col-lg-2">
-                        <aside class="footer__top__nav">
-                            <h3>{{__('Support')}}</h3>
-                            <ul>
-                                <li><a href="#">Get in Touch</a></li>
-                                <li><a href="#">Help Center</a></li>
-                                <li><a href="#">Live chat</a></li>
-                                <li><a href="#">How it works</a></li>
-                            </ul>
-                        </aside>
-                    </div>
-                    <div class="col-lg-3">
-                        <aside class="footer__top__nav footer__top__nav--contact">
-                            <h3>{{__('Contact Us')}}</h3>
-                            <p>{{__('Email: support@domain.com')}}</p>
-                            <p>{{__('Phone: 1 (00) 832 2342')}}</p>
-                            <ul>
-                                <li class="facebook">
-                                    <a title="Facebook" href="#">
-                                        <i class="la la-facebook-f"></i>
-                                    </a>
-                                </li>
-                                <li class="twitter">
-                                    <a title="Twitter" href="#">
-                                        <i class="la la-twitter"></i>
-                                    </a>
-                                </li>
-                                <li class="youtube">
-                                    <a title="Youtube" href="#">
-                                        <i class="la la-youtube"></i>
-                                    </a>
-                                </li>
-                                <li class="instagram">
-                                    <a title="Instagram" href="#">
-                                        <i class="la la-instagram"></i>
-                                    </a>
-                                </li>
-                            </ul>
-                        </aside>
-                    </div>
-                </div>
-            </div><!-- .top-footer -->
             <div class="footer__bottom">
-                <p class="footer__bottom__copyright">{{now()->year}} &copy; <a href="{{__('https://uxper.co')}}" target="_blank">{{__('UxPer')}}</a>. {{__('All rights reserved.')}}</p>
+                <p class="footer__bottom__copyright">{{now()->year}} &copy; <a href="{{__('https://test')}}" target="_blank">{{__('Test')}}</a>. {{__('All rights reserved.')}}</p>
             </div><!-- .top-footer -->
         </div><!-- .container -->
     </footer><!-- site-footer -->

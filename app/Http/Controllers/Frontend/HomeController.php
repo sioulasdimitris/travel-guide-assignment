@@ -18,6 +18,8 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
+use App\Models\Wishlist;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -80,7 +82,22 @@ class HomeController extends Controller
             ->where('status', Testimonial::STATUS_ACTIVE)
             ->get();
 
-//        return $trending_places;
+
+        $wishlists = Wishlist::query()
+            ->where('user_id', Auth::id())
+            ->get('place_id')->toArray();
+
+        $wishlists = array_column($wishlists, 'place_id');
+
+        $wishlist_places = Place::query()
+            ->with('place_types')
+            ->withCount('reviews')
+            ->with('avgReview')
+            ->withCount('wishList')
+            ->whereIn('id', $wishlists)
+            ->paginate();
+
+        //return $trending_places;
 
         $template = setting('template', '01');
 
@@ -89,6 +106,7 @@ class HomeController extends Controller
             'blog_posts' => $blog_posts,
             'categories' => $categories,
             'trending_places' => $trending_places,
+            'wishlist_places' => $wishlist_places,
             'testimonials' => $testimonials
         ]);
     }
@@ -148,8 +166,8 @@ class HomeController extends Controller
         $places = $places->get(['id', 'city_id', 'name', 'slug', 'address']);
 
         $html = '<ul class="custom-scrollbar">';
-        foreach ($places as $place):
-            if (isset($place['city'])):
+        foreach ($places as $place) :
+            if (isset($place['city'])) :
                 $place_url = route('place_detail', $place->slug);
                 $city_url = route('city_detail', $place['city']['slug']);
                 $html .= "
@@ -184,8 +202,8 @@ class HomeController extends Controller
         $places = $places->get(['id', 'city_id', 'name', 'slug', 'address']);
 
         $html = '<ul class="listing_items">';
-        foreach ($places as $place):
-            if (isset($place['city'])):
+        foreach ($places as $place) :
+            if (isset($place['city'])) :
                 $place_url = route('place_detail', $place->slug);
                 $html .= "
                 <li>
@@ -336,7 +354,7 @@ class HomeController extends Controller
 
         $places = $places->paginate();
 
-//        return $places;
+        //        return $places;
 
         $template = setting('template', '01');
 
@@ -356,5 +374,4 @@ class HomeController extends Controller
             'filter_city' => $request->city,
         ]);
     }
-
 }

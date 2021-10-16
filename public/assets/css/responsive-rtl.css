@@ -868,7 +868,6 @@
 	.business-main.home-main .site-banner:after{
 		background-size: cover;
     	height: 55px;
-    	background-image: url(../images/assets/mask-1.svg);
 	}
 	.site__search.layout-02.open{
 		padding: 14px 15px 14px 60px;
