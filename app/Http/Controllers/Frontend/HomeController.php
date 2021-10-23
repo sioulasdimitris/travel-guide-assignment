@@ -102,7 +102,7 @@ class HomeController extends Controller
 
 
         $favorites = Favorite::query()
-            ->where('user_id', Auth::id())->limit(8)
+            ->where('user_id', Auth::id())
             ->get('place_id')->toArray();
 
         $favorites = array_column($favorites, 'place_id');
