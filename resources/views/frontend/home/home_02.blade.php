@@ -323,7 +323,7 @@ if (setting('home_banner')) {
         <div class="featured-cities">
             <div class="container">
                 <h2 class="title title-border-bottom align-center">
-                    {{ __('Featured Cities') }}<span>{{ __("Choose the city you'll be living in next") }}</span></h2>
+                    {{ __('Favorite Cities') }}<span>{{ __("Choose the city you'll be living in next") }}</span></h2>
                 <div class="slick-sliders">
                     <div class="slick-slider featured-slider slider-pd30" data-item="4" data-arrows="true"
                         data-itemScroll="4" data-dots="true" data-centerPadding="30" data-tabletitem="2"

@@ -370,7 +370,7 @@
     <footer id="footer" class="footer">
         <div class="container">
             <div class="footer__bottom">
-                <p class="footer__bottom__copyright">{{now()->year}} &copy; <a href="{{__('https://test')}}" target="_blank">{{__('Test')}}</a>. {{__('All rights reserved.')}}</p>
+                <p class="footer__bottom__copyright">{{now()->year}} &copy; <a href="{{__('https://test')}}" target="_blank">{{__('Travel Guide US')}}</a>. {{__('All rights reserved.')}}</p>
             </div><!-- .top-footer -->
         </div><!-- .container -->
     </footer><!-- site-footer -->
