@@ -174,7 +174,7 @@ if (setting('home_banner')) {
                             data-tabletscroll="2" data-smallpcscroll="3" data-smallpcitem="3" data-mobileitem="1"
                             data-mobilescroll="1" data-mobilearrows="false">
 
-                            @foreach ($trending_places as $place)
+                            @foreach ($favorite_places as $place)
                                 <div class="place-item layout-02">
                                     <div class="place-inner">
                                         <div class="place-thumb">

@@ -98,7 +98,6 @@ class Place extends Model  implements TranslatableContract
         return $this->hasMany(Wishlist::class, 'place_id', 'id')->where('user_id', Auth::id());
     }
 
-
     public function getAll()
     {
         return self::query()

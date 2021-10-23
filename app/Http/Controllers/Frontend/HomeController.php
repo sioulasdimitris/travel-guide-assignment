@@ -19,14 +19,17 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use App\Models\Wishlist;
+use App\Models\Favorite;
 use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
     private $response;
+    private $favorite;
 
-    public function __construct(Response $response)
+    public function __construct(Favorite $favorite, Response $response)
     {
+        $this->favorite = $favorite;
         $this->response = $response;
     }
 
@@ -97,6 +100,21 @@ class HomeController extends Controller
             ->whereIn('id', $wishlists)
             ->paginate();
 
+
+        $favorites = Favorite::query()
+            ->where('user_id', Auth::id())
+            ->get('place_id')->toArray();
+
+        $favorites = array_column($favorites, 'place_id');
+
+        $favorite_places = Place::query()
+            ->with('place_types')
+            ->withCount('reviews')
+            ->with('avgReview')
+            ->withCount('wishList')
+            ->whereIn('id', $favorites)
+            ->paginate();    
+
         //return $trending_places;
 
         $template = setting('template', '01');
@@ -107,6 +125,7 @@ class HomeController extends Controller
             'categories' => $categories,
             'trending_places' => $trending_places,
             'wishlist_places' => $wishlist_places,
+            'favorite_places' => $favorite_places,
             'testimonials' => $testimonials
         ]);
     }
@@ -355,6 +374,8 @@ class HomeController extends Controller
         $places = $places->paginate();
 
         //        return $places;
+        //
+        $this->addToFavorites($places, $request);
 
         $template = setting('template', '01');
 
@@ -374,4 +395,27 @@ class HomeController extends Controller
             'filter_city' => $request->city,
         ]);
     }
+
+    public function addToFavorites($places, $request)
+    {
+     
+        foreach ($places as $place) {
+            $data = [
+                'user_id' => Auth::id(),
+                'place_id' => $place->id,
+            ];
+
+            $have_favorite = Favorite::query()
+            ->where('user_id', Auth::id())
+            ->where('place_id', $place->id)
+            ->exists();
+
+            if (!$have_favorite) {
+                $favorite = new Favorite();
+                $favorite->fill($data)->save();
+            } 
+        }
+
+    }
+
 }
